@@ -1,9 +1,20 @@
 {
   "name": "test_assignment",
   "version": "1.0.0",
-  "description": "",
+  "description": "UI & API Automation Framework",
   "main": "index.js",
-  "scripts": {},
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "playwright": "^1.58.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://namra19@github.com/namra19/test_assignment.git"
@@ -15,10 +26,7 @@
     "url": "https://github.com/namra19/test_assignment/issues"
   },
   "homepage": "https://github.com/namra19/test_assignment#readme",
-  "devDependencies": {
-    "@playwright/test": "^1.58.2",
-    "@types/node": "^25.3.5",
-    "playwright": "^1.58.2",
-    "typescript": "^5.9.3"
+  "dependencies": {
+    "dotenv": "^17.3.1"
   }
 }
