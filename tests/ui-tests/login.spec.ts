@@ -20,6 +20,27 @@ test.describe('MedTrack Portal Login', () => {
         await expect(page).toHaveURL(/patients/);
     });
 
+ test('Radiologist Login', async ({ page }) => {
+        const loginPage = new LoginPage(page);
+
+        await loginPage.login(
+            users.radiologist.username,
+            users.radiologist.password
+        );
+
+        await expect(page).toHaveURL(/patients/);
+    });
+
+     test('Invalid Login', async ({ page }) => {
+        const loginPage = new LoginPage(page);
+
+        await loginPage.login(
+            users.invalidUser.username,
+            users.invalidUser.password
+        );
+
+        await expect(page).toHaveURL(/login/);
+    });
 
 });
 
