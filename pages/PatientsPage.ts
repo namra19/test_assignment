@@ -4,36 +4,44 @@ import { patientPageLocators } from '../locators/patientPageLocators';
 export class PatientsPage {
   readonly page: Page;
   readonly patientRows: Locator;
- // readonly firstPatientOpenLink: Locator;
+  readonly searchInput: Locator;
+  readonly searchButton: Locator;
+  readonly openButton: Locator;
+
 
   constructor(page: Page) {
     this.page = page;
     this.patientRows = page.locator(patientPageLocators.patientRows);
-   // this.firstPatientOpenLink = page.locator(patientPageLocators.firstPatientOpenLink);
+    this.searchInput = page.locator(patientPageLocators.searchInput);
+    this.searchButton = page.locator(patientPageLocators.searchButton);
+    this.openButton = page.locator(patientPageLocators.openButton);
   }
 
   async goto() {
     await this.page.goto('/patients');
   }
 
-//   async openFirstPatient() {
-//     await this.firstPatientOpenLink.click();
-//   }
+  async searchPatient(name: string) {
+    await this.searchInput.fill(name);
+    await this.searchButton.click();
+  }
 
-//   async openPatientByName(name: string) {
-//     const row = this.page.locator('table tbody tr', {
-//       has: this.page.locator(`text=${name}`)
-//     });
 
-//     await row.locator(patientPageLocators.openButton).click();
-//   }
+  async openSearchedPatient() {
+    await this.openButton.click();
+  }
 
   async openPatientByMRN(mrn: string) {
     const row = this.page.locator(patientPageLocators.patientRows, {
-    has: this.page.locator(patientPageLocators.mrnCell, { hasText: mrn })
-  });
+      has: this.page.locator(patientPageLocators.mrnCell, { hasText: mrn })
+    });
 
-  await row.locator(patientPageLocators.openButton).click();
+
+
+    await row.locator(patientPageLocators.openButton).click();
+
+
+  }
 }
-}
+
 
