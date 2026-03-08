@@ -5,6 +5,7 @@ const testEnv = (process.env.TEST_ENV as TestEnv) || 'qa';
 const usersByEnv: Record<TestEnv, {
     oncologist: { username: string; password: string };
     radiologist: { username: string; password: string };
+    invalidUser: { username: string; password: string };
   
 
 }> = {
@@ -16,7 +17,11 @@ const usersByEnv: Record<TestEnv, {
         radiologist: {
             username: 'dr.jones',
             password: 'radiologist123'
-        }
+        },
+         invalidUser: {
+            username: 'invalid_user',
+            password: 'wrong_password',
+        },
 
     },
 
