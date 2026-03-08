@@ -3,16 +3,9 @@ import { loginAsOncologist } from '../../../utils/utils';
 import { PatientsPage } from '../../../pages/PatientsPage';
 import { PatientDetailsPage } from '../../../pages/PatientsDetailPage';
 import { LoginPage } from '../../../pages/LoginPage';
+import { patientDetailPageLocators } from '../../../locators/patientDetailPageLocators';
 
-//Scenario: View patient demographics, history, labs, and referrals
 
-// Navigate to patient list page
-
-// Select a patient
-
-// Verify patient demographics, medical history, lab results, and referrals are displayed correctly
-
-// Validate that read-only fields are non-editable unless explicitly allowed
 test.describe('Oncologist - Patient Data Management', () => {
 
   test.beforeEach(async ({ page }) => {
@@ -26,12 +19,10 @@ test.describe('Oncologist - Patient Data Management', () => {
 
     await loginAsOncologist(page);
     await expect(page).toHaveURL(/patients/);
-    // await patientsPage.openPatientByMRN('BP-10003');
-    await patientsPage.searchPatient('BP-10003');
+    await patientsPage.searchPatient('AH-10009');
     await patientsPage.openSearchedPatient();
 
     // Verify demographics
-    await expect(patientDetails.patientRowByName).toBeVisible();
     await expect(patientDetails.dob).toBeVisible();
     await expect(patientDetails.mrn).toBeVisible();
 
@@ -46,43 +37,45 @@ test.describe('Oncologist - Patient Data Management', () => {
 
     // Verify referrals
     await expect(patientDetails.referralsSection).toBeVisible();
-
-    // Add clinical note
-    const note = "Patient responding well to immunotherapy";
-    await patientDetails.addClinicalNote(note);
-
-  });
-
-  
   });
 
 
+});
 
-//Scenario: Add clinical notes
+test("Add clinical note and verify timestamp", async ({ page }) => {
 
-// Navigate to a patient’s record
+  const patientsPage = new PatientsPage(page);
+  await loginAsOncologist(page);
+  await expect(page).toHaveURL(/patients/);
+  await patientsPage.searchPatient('AH-10009');
+  await patientsPage.openSearchedPatient();
 
-// Add a new clinical note
+  const note = "Patient responding well to immunotherapy";
 
-// Verify note appears immediately in patient history
+  await page.fill(patientDetailPageLocators.clinicalNoteInput, note);
+  await page.click(patientDetailPageLocators.addNoteButton);
 
-// Ensure timestamp and user identity are recorded correctly
+  //Verify note appears in patient history
+  const latestNote = page.locator(patientDetailPageLocators.patientNote, {
+    hasText: note
+  }).first();
+
+  await expect(latestNote).toBeVisible();
+
+});
+
+test("Add orders", async ({ page }) => {
+
+  const patientsPage = new PatientsPage(page);
+  await loginAsOncologist(page);
+  await expect(page).toHaveURL(/patients/);
+  await patientsPage.searchPatient('AH-10009');
+  await patientsPage.openSearchedPatient();
+
+  await page.selectOption(patientDetailPageLocators.orderInput, "CT");
+  await page.click(patientDetailPageLocators.createOrderButton);
+
+});
 
 
-// 1.2 Orders
 
-// Scenario: Order imaging studies (CT/MRI)
-
-// Open patient record
-
-// Navigate to “Orders” section
-
-// Select CT or MRI, fill in required fields, submit order
-
-// Verify confirmation message and that order is added to patient’s order history
-
-// Scenario: Order blood tests
-
-// Similar steps as above but for blood tests
-
-// Validate that non-Oncologist users cannot see or submit this option

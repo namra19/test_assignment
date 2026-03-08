@@ -1,4 +1,4 @@
-import { Page, Locator } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 import { patientDetailPageLocators } from '../locators/patientDetailPageLocators';
 
 export class PatientDetailsPage {
@@ -37,5 +37,14 @@ export class PatientDetailsPage {
   async addClinicalNote(note: string) {
     await this.clinicalNoteInput.fill(note);
     await this.addNoteButton.click();
+  }
+
+  async verifyLatestNote(noteText: string) {
+    const latestNote = this.page.locator(patientDetailPageLocators.patientNote).first();
+    await expect(latestNote).toContainText(noteText);
+    await expect(latestNote).toContainText("Oncologist");
+    const timestamp = latestNote.locator(patientDetailPageLocators.noteTimestamp);
+    await expect(timestamp).toBeVisible();
+
   }
 }
