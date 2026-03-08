@@ -1,5 +1,6 @@
-import { Page, Locator } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 import { patientPageLocators } from '../locators/patientPageLocators';
+import { patientDetailPageLocators } from '../locators/patientDetailPageLocators';
 
 export class PatientsPage {
   readonly page: Page;
@@ -9,12 +10,14 @@ export class PatientsPage {
   readonly openButton: Locator;
 
 
+
   constructor(page: Page) {
     this.page = page;
     this.patientRows = page.locator(patientPageLocators.patientRows);
     this.searchInput = page.locator(patientPageLocators.searchInput);
     this.searchButton = page.locator(patientPageLocators.searchButton);
     this.openButton = page.locator(patientPageLocators.openButton);
+  
   }
 
   async goto() {
@@ -26,22 +29,12 @@ export class PatientsPage {
     await this.searchButton.click();
   }
 
-
   async openSearchedPatient() {
     await this.openButton.click();
   }
 
-  async openPatientByMRN(mrn: string) {
-    const row = this.page.locator(patientPageLocators.patientRows, {
-      has: this.page.locator(patientPageLocators.mrnCell, { hasText: mrn })
-    });
-
-
-
-    await row.locator(patientPageLocators.openButton).click();
-
-
-  }
+ 
+  
 }
 
 

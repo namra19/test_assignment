@@ -13,15 +13,18 @@ export const patientDetailPageLocators = {
     "addNoteButton": "[data-testid='add-note-submit']",
 
     "patientNote": "p:has-text(\"Patient responding well to immunotherapy\")",
-    "noteTimestamp": "span.text-gray-500",
 
     "orderInput": "[data-testid='order-type-select']",
     "createOrderButton": "[data-testid='order-submit']",
-  labTestRow: "div:has(span.font-medium:has-text('CT'))",
-  labTestName: "span.font-medium.text-gray-900",
+    "labTestRow": "div:has(span.font-medium:has-text('CT'))",
 
-  //  "patientOrderMRI": "span:has-text(\"MRI\")",
-    "orderTimestamp": "span.text-gray-500"
+    "orderTimestamp": "span.text-gray-500",
+    "uploadScanButton": "[data-testid='upload-scan-input']",
 
+     "scanVolumeAndDateBtn": "text=Set Volume & Date",
+    "scanVolumeInput": "[data-testid='set-meta-volume']",
+    "scanDateInput": "[data-testid='set-meta-date']",
+
+    "addCommentInput": "[data-testid='scan-comment-input']"
 
 }

@@ -10,7 +10,9 @@ export async function loginAsOncologist(page: Page) {
         users.oncologist.username,
         users.oncologist.password
         
+        
     );
+    await expect(page).toHaveURL(/patients/);
 }
 
 export async function loginAsRadiologist(page: Page) {
@@ -21,4 +23,5 @@ export async function loginAsRadiologist(page: Page) {
         users.radiologist.username,
         users.radiologist.password
     );
+    await expect(page).toHaveURL(/patients/);
 }

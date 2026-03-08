@@ -18,7 +18,6 @@ test.describe('Oncologist - Patient Data Management', () => {
     const patientDetails = new PatientDetailsPage(page);
 
     await loginAsOncologist(page);
-    await expect(page).toHaveURL(/patients/);
     await patientsPage.searchPatient('AH-10009');
     await patientsPage.openSearchedPatient();
 
@@ -39,19 +38,15 @@ test.describe('Oncologist - Patient Data Management', () => {
     await expect(patientDetails.referralsSection).toBeVisible();
   });
 
-
 });
 
 test("Add clinical note and verify timestamp", async ({ page }) => {
 
   const patientsPage = new PatientsPage(page);
   await loginAsOncologist(page);
-  await expect(page).toHaveURL(/patients/);
   await patientsPage.searchPatient('AH-10009');
   await patientsPage.openSearchedPatient();
-
   const note = "Patient responding well to immunotherapy";
-
   await page.fill(patientDetailPageLocators.clinicalNoteInput, note);
   await page.click(patientDetailPageLocators.addNoteButton);
 
@@ -65,13 +60,11 @@ test("Add clinical note and verify timestamp", async ({ page }) => {
 });
 
 test("Add orders", async ({ page }) => {
-
+  
   const patientsPage = new PatientsPage(page);
   await loginAsOncologist(page);
-  await expect(page).toHaveURL(/patients/);
   await patientsPage.searchPatient('AH-10009');
   await patientsPage.openSearchedPatient();
-
   await page.selectOption(patientDetailPageLocators.orderInput, "CT");
   await page.click(patientDetailPageLocators.createOrderButton);
 

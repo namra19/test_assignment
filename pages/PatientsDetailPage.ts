@@ -17,6 +17,8 @@ export class PatientDetailsPage {
   readonly clinicalNoteInput: Locator;
   readonly addNoteButton: Locator;
   readonly patientNote: Locator;
+
+  readonly uploadScanButton: Locator;
   constructor(page: Page) {
     this.page = page;
 
@@ -32,6 +34,7 @@ export class PatientDetailsPage {
     this.clinicalNoteInput = page.locator(patientDetailPageLocators.clinicalNoteInput);
     this.addNoteButton = page.locator(patientDetailPageLocators.addNoteButton);
     this.patientNote = page.locator(patientDetailPageLocators.patientNote);
+    this.uploadScanButton = page.locator(patientDetailPageLocators.uploadScanButton);
   }
 
   async addClinicalNote(note: string) {
@@ -39,12 +42,12 @@ export class PatientDetailsPage {
     await this.addNoteButton.click();
   }
 
-  async verifyLatestNote(noteText: string) {
-    const latestNote = this.page.locator(patientDetailPageLocators.patientNote).first();
-    await expect(latestNote).toContainText(noteText);
-    await expect(latestNote).toContainText("Oncologist");
-    const timestamp = latestNote.locator(patientDetailPageLocators.noteTimestamp);
-    await expect(timestamp).toBeVisible();
+  async uploadScan(filePath: string) {
+    await this.page.setInputFiles('input[type="file"]', filePath);
+  }
 
+  async addScanComment(comment: string) {
+    const addCommentInput = this.page.locator(patientDetailPageLocators.addCommentInput).first();
+    await addCommentInput.fill(comment);
   }
 }
