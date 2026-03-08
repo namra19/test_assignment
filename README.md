@@ -8,19 +8,14 @@ This repository contains an automation testing framework built with Playwright a
 
 The framework follows Page Object Model (POM) principles and supports:
 
-* UI automation (SauceDemo)
+* UI automation 
 
-* API automation (FakeStore API)
-
-* Positive & negative test scenarios
+* API automation 
 
 * Separate execution for UI and API tests
 
 ## Project Structure 
 ```
-├── api
-│   ├── api-pages        # API Page Objects
-│   └── api-utils        # API base utilities
 │
 ├── pages                # UI Page Objects
 │
@@ -28,10 +23,9 @@ The framework follows Page Object Model (POM) principles and supports:
 │   ├── ui-tests         # UI test cases
 │   └── api-tests        # API test cases
 │
-├── test-data             # Test data (users, products, etc.)              
+├── test-data             # Test data (users, files)            
 ├── locators              # UI selectors
 ├── playwright.config.ts  # Playwright configuration
-├── .env                  # Environment variables
 └── README.md
 ```
 
@@ -47,13 +41,13 @@ The framework follows Page Object Model (POM) principles and supports:
 * Dotenv (environment configuration)
 
 # Applications Under Test 
-* UI Application - SauceDemo
+* UI Application - MedTrack Portal
 
-URL: https://www.saucedemo.com
+URL: http://localhost:5173/login
 
-* API Application - FakeStore API
+* API Application - 
 
-Base URL: https://fakestoreapi.com
+Base URL: http://localhost:8000
 
 # Environment Setup 
 ## Prerequisites
@@ -65,12 +59,6 @@ Base URL: https://fakestoreapi.com
 * npm
 
 * Install dependencies: npm install
-
-## Environment variables 
-Create a .env file in the root directory:
-
-BASE_URL=https://www.saucedemo.com
-API_BASE_URL=https://fakestoreapi.com
 
 # Running Tests 
 * Run all tests (UI + API): npx playwright test
